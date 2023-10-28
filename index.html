@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 8</title>
+</head>
+<body>
+
+<style>
+        html {
+                background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+                background-size: cover;
+                background-size: 100% 100%;
+                width: 100%;
+                height: 100%;
+                
+        }
+
+        body {
+                align-items: center;
+                font-family: 'Courier New', Courier, monospace;
+                align-content: center;
+                margin: 0 auto;
+                text-align: center;
+        }
+
+        h1 {
+                font-size: xx-large;
+                color:rgb(105, 29, 15);
+        }
+
+        #piratespeak {
+                font-style: italic;
+                font-weight: 400;
+        }
+
+        button {
+                background-color: #FAACA8;
+                border-color: brown;
+                color: brown;
+                font-weight: bold;
+                border-radius: 20px;
+        }
+
+        button:hover {
+                background-color: brown;
+                border-color: #FAACA8;
+                color: #FAACA8;
+                font-weight: bold;
+        }
+
+        input {
+                font-family: 'Courier New', Courier, monospace;
+                padding: 10px;
+        }
+</style>
+
+    <h1>Speak Pirate English!</h1>
+
+
+        <input style="width:200px; height: 50px;" type="text" id="input" placeholder="Enter text to translate" name="input">
+        <button style="width:100px; height: 50px;" id="convert">Pirate-ify~</button>
+
+
+    <p id="piratespeak"></p>
+
+    <script>
+        window.onload = function() {
+        input = document.getElementById("input")
+        btn = document.getElementById("convert")
+
+        btn.addEventListener("click", clicked)
+        
+        function clicked () {
+        text = input.value;
+
+        fetch(`https://api.funtranslations.com/translate/pirate.json?text=${encodeURIComponent(text)}`) 
+                .then (res => res.json())
+                .then(data => {
+                pirateText = document.getElementById("piratespeak")
+                pirateText.innerHTML = `Pirate Speak: ${data.contents.translated}`
+                })
+                .catch (error => console.log(error))
+        }
+        }
+    </script>
+</body>
+</html>
